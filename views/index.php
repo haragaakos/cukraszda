@@ -1,3 +1,6 @@
+<?php 
+    session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -24,6 +27,12 @@
         </div>
 
         <nav class="navbar">
+            <a id="index-text">Üdvözöllek, <?php if(isset($_SESSION['usersId'])){
+            echo explode(" ", $_SESSION['usersName'])[0];
+            }else{
+            echo 'Vendég';
+            } 
+            ?> </a>
             <a href="#home">Kezdőoldal</a>
             <a href="#product">Termékek</a>
             <a href="./views/rating.php">Vélemények</a>

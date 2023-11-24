@@ -31,6 +31,7 @@ html::-webkit-scrollbar-thumb{
     background-color: var(--white);
     border-radius: 5rem;
 }
+
 .header{
     top: 0;right: 0;left: 0;
     background-color: var(--white);
@@ -40,6 +41,7 @@ html::-webkit-scrollbar-thumb{
     position: fixed;
     padding: 1.4rem 7%;
     z-index: 999;
+
 }
 .header .logoContent{
     display: flex;
@@ -96,6 +98,7 @@ html::-webkit-scrollbar-thumb{
 .header .search.active{
     display: inline-block;
 }
+
 #menu-bar{
     display: none;
 }

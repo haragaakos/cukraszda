@@ -9,6 +9,12 @@
         </div>
 
         <nav class="navbar">
+            <a id="index-text">Üdvözöllek, <?php if(isset($_SESSION['usersId'])){
+            echo explode(" ", $_SESSION['usersName'])[0];
+            }else{
+            echo 'Vendég';
+            } 
+            ?> </a>
             <a href="../index.php">Kezdőoldal</a>
             <a href="#product">Termékek</a>
             <a href="rating.php">Vélemények</a>

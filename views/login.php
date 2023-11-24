@@ -11,9 +11,9 @@
 <form method="post" action="../controllers/Usercontroller.php">
 <input type="hidden" name="type" value="login">
     <input type="text" name="name/email"  
-    placeholder="Username/Email...">
+    placeholder="Felhasználónév/E-mail...">
     <input type="password" name="usersPwd" 
-    placeholder="Password...">
+    placeholder="Jelszó...">
     <button type="submit" name="submit">Bejelentkezés</button>
 </form>
 
@@ -22,15 +22,15 @@
 <form method="post" action="../controllers/Usercontroller.php">
     <input type="hidden" name="type" value="register">
     <input type="text" name="usersName" 
-    placeholder="Full name...">
+    placeholder="Teljes név...">
     <input type="text" name="usersEmail" 
-    placeholder="Email...">
+    placeholder="E-mail...">
     <input type="text" name="usersUid" 
-    placeholder="Username...">
+    placeholder="Felhasználónév...">
     <input type="password" name="usersPwd" 
-    placeholder="Password...">
+    placeholder="Jelszó...">
     <input type="password" name="pwdRepeat" 
-    placeholder="Repeat password">
+    placeholder="Jelszó ismétlése">
     <button type="submit" name="submit">Regisztráció</button>
 </form>
 

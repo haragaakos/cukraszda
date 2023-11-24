@@ -17,7 +17,7 @@ class User {
 
         $row = $this->db->single();
 
-        //Check row
+        //Sorok csekkolása
         if($this->db->rowCount() > 0){
             return $row;
         }else{
