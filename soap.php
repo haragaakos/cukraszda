@@ -1,30 +1,20 @@
-<? require_once 'auth.php';
-requireRole('admin') ?>
+<?php
+try {
+    $client = new SoapClient("http://localhost/cukraszda/services/service.wsdl");
 
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOAP Szolgáltatások</title>
-</head>
-<body>
-    <h1>SOAP Szolgáltatások</h1>
-    <select id="table">
-        <option value="ar">Ár</option>
-        <option value="suti">Süti</option>
-        <option value="tartalom">Tartalom</option>
-    </select>
-    <button onclick="getRecords()">Lekérdezés</button>
-    <pre id="result"></pre>
+    // Süti adatok lekérése
+    $suti = $client->getSuti();
+    echo "Süti adatok: <pre>" . print_r($suti, true) . "</pre>";
 
-    <script>
-        async function getRecords() {
-            const table = document.getElementById('table').value;
-            const response = await fetch(`controllers/soap_server_controller.php/${table}`);
-            const data = await response.json();
-            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
-        }
-    </script>
-</body>
-</html>
+    // Ár adatok lekérése
+    $ar = $client->getAr();
+    echo "Ár adatok: <pre>" . print_r($ar, true) . "</pre>";
+
+    // Tartalom adatok lekérése
+    $tartalom = $client->getTartalom();
+    echo "Tartalom adatok: <pre>" . print_r($tartalom, true) . "</pre>";
+
+} catch (Exception $e) {
+    echo "Hiba történt: " . $e->getMessage();
+}
+?>
