@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Jelszó titkosítás és mentés
     $hashedPassword = hash('sha256', $password);
-    $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'registered')");
+    $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')");
     $stmt->execute([$username, $email, $hashedPassword]);
 
     echo "Sikeres regisztráció!";

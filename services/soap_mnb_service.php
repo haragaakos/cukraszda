@@ -39,7 +39,7 @@ function getMonthlyRates($year, $month, $currency) {
         $startDate = "{$year}-{$month}-01";
         $endDate = date("Y-m-t", strtotime($startDate));
 
-        // Az MNB API csak egy devizát fogad, nem devizapárt
+        //Az MNB API csak egy devizát fogad, nem devizapárt
         $currencyName = explode("/", $currency)[0];
 
         $response = $client->GetExchangeRates([
@@ -56,7 +56,7 @@ function getMonthlyRates($year, $month, $currency) {
                 $date = (string)$day['date'];
                 $rate = isset($day->Rate) ? (string)$day->Rate : "N/A";
 
-                // Csak a HUF-ra váltott árfolyamokat tároljuk
+                //Csak a forintra váltott árfolyamokat tároljuk
                 $rates[] = [
                     'date' => $date,
                     'rate' => $rate

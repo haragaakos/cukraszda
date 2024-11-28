@@ -7,7 +7,7 @@ require_once 'menu.php';
   <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
     <a href="index.php" class="logo d-flex align-items-center">   
-      <h1 class="sitename">Active.</h1>
+      <h1 class="sitename">Sweet-Cake Cukrászda</h1>
     </a>
 
     <nav id="navmenu" class="navmenu">

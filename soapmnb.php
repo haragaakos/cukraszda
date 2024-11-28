@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MNB Árfolyamok</title>
+    
     <script>
         //Devizapárok betöltése
         async function loadCurrencyPairs() {
@@ -34,33 +35,59 @@
 
         //Árfolyam lekérdezése
         async function fetchRate() {
-            const currency = document.getElementById('currency').value;
-            const date = document.getElementById('date').value;
+    const currency = document.getElementById('currency').value;
+    const date = document.getElementById('date').value;
 
-            if (!currency || !date) {
-                alert("Kérjük, válasszon devizapárt és dátumot.");
-                return;
-            }
+    if (!currency || !date) {
+        alert("Kérjük, válasszon devizapárt és dátumot.");
+        return;
+    }
 
-            const response = await fetch('services/soap_mnb_backend_service.php?action=getRate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ currency, date })
-            });
+    const response = await fetch('services/soap_mnb_backend_service.php?action=getRate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ currency, date })
+    });
 
-            const data = await response.json();
-            const resultDiv = document.getElementById('result');
+    const data = await response.json();
+    const tableBody = document.querySelector("#rateResult");
 
-            if (data.error) {
-                resultDiv.innerHTML = `<strong>Hiba:</strong> ${data.error}`;
-            } else {
-                resultDiv.innerHTML = `
-                    <strong>Devizapár:</strong> ${currency}<br>
-                    <strong>Dátum:</strong> ${data.date}<br>
-                    <strong>Árfolyam:</strong> ${data.rate}
-                `;
-            }
-        }
+    // Törli az előző eredményeket
+    tableBody.innerHTML = "";
+
+    if (data.error) {
+        const row = document.createElement('tr');
+        const errorCell = document.createElement('td');
+        errorCell.colSpan = 3;
+        errorCell.style.textAlign = "center";
+        errorCell.textContent = `Hiba: ${data.error}`;
+        row.appendChild(errorCell);
+        tableBody.appendChild(row);
+    } else {
+        const row = document.createElement('tr');
+
+        const currencyCell = document.createElement('td');
+        currencyCell.textContent = currency;
+        currencyCell.style.border = "1px solid #ddd";
+        currencyCell.style.padding = "10px";
+
+        const dateCell = document.createElement('td');
+        dateCell.textContent = data.date;
+        dateCell.style.border = "1px solid #ddd";
+        dateCell.style.padding = "10px";
+
+        const rateCell = document.createElement('td');
+        rateCell.textContent = data.rate;
+        rateCell.style.border = "1px solid #ddd";
+        rateCell.style.padding = "10px";
+
+        row.appendChild(currencyCell);
+        row.appendChild(dateCell);
+        row.appendChild(rateCell);
+        tableBody.appendChild(row);
+    }
+}
+
 let chartInstance = null; //Globális változó létrehozása a diagramhoz
 
 async function fetchMonthlyRates() {
@@ -124,8 +151,8 @@ async function fetchMonthlyRates() {
             datasets: [{
                 label: `${currency} árfolyam`,
                 data: rates,
-                borderColor: 'blue',
-                backgroundColor: 'lightblue',
+                borderColor: 'green',
+                backgroundColor: 'lightgreen',
                 fill: false
             }]
         },
@@ -152,48 +179,99 @@ async function fetchMonthlyRates() {
     </script>
 </head>
 <body>
-    <h1>MNB Árfolyamok</h1>
-    <form id="queryForm">
-        <label for="currency">Devizapár:</label>
-        <select id="currency" name="currency" required>
-            <option value="">Válasszon devizapárt</option>
-        </select>
-        <br>
-        <label for="date">Dátum:</label>
-        <input type="date" id="date" name="date" required>
-        <br>
-        <button type="button" onclick="fetchRate()">Keresés</button>
+    <h1 style="text-align: center; margin-bottom: 30px;">MNB Árfolyamok</h1>
+
+    <section style="margin-bottom: 20px; text-align: center;">
+    <form id="queryForm" style="max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 10px;">
+            <label for="currency">Devizapár:</label>
+            <select id="currency" name="currency" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="">Válasszon devizapárt</option>
+            </select>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="date">Dátum:</label>
+            <input type="date" id="date" name="date" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div>
+            <button type="button" onclick="fetchRate()" style="padding: 10px 20px; background-color: #34bf49; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+                Lekérdezés
+            </button>
+        </div>
     </form>
-    <div id="result"></div>
-    <form id="monthlyForm">
-    <h2>Havi árfolyamok</h2>
-    <label for="monthlyCurrency">Devizapár:</label>
-    <select id="monthlyCurrency" name="currency" required>
-        <option value="">Válasszon devizapárt</option>
-    </select>
-    <br>
-    <label for="year">Év:</label>
-    <input type="number" id="year" name="year" min="2000" max="2100" required>
-    <br>
-    <label for="month">Hónap:</label>
-    <input type="number" id="month" name="month" min="1" max="12" required>
-    <br>
-    <button type="button" onclick="fetchMonthlyRates()">Lekérdezés</button>
-</form>
-<div id="monthlyResult">
-    <table id="rateTable">
+</section>
+
+<div id="result" style="text-align: center; margin-top: 20px;">
+    <h2 style="margin-bottom: 20px;">Lekérdezett eredmények</h2>
+    <table style="margin: auto; border-collapse: collapse; width: 50%; max-width: 600px; border: 1px solid grey;">
         <thead>
             <tr>
-                <th>Dátum</th>
-                <th>Árfolyam</th>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9;">Devizapár</th>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9;">Dátum</th>
+                <th style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9;">Árfolyam</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="rateResult">
+            <!-- Dinamikusan generált adatok helye -->
+        </tbody>
     </table>
-    <canvas id="rateChart" width="400" height="200"></canvas>
 </div>
 
+
+
+    <div id="result" style="margin-bottom: 20px;"></div>
+
+    <section style="text-align: center; margin-bottom: 20px;">
+    <form id="monthlyForm" style="max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="margin-bottom: 20px;">Havi árfolyamok</h2>
+        <div style="margin-bottom: 10px;">
+            <label for="monthlyCurrency">Devizapár:</label>
+            <select id="monthlyCurrency" name="currency" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="">Válasszon devizapárt</option>
+            </select>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="year">Év:</label>
+            <input type="number" id="year" name="year" min="1985" max="2025" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="month">Hónap:</label>
+            <input type="number" id="month" name="month" min="1" max="12" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div>
+            <button type="button" onclick="fetchMonthlyRates()" style="padding: 10px 20px; background-color: #34bf49; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+                Lekérdezés
+            </button>
+        </div>
+    </form>
+</section>
+
+
+    <div id="monthlyResult" style="margin-top: 20px;">
+        <!-- Táblázat és diagram tároló -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+            <!-- Táblázat -->
+            <div style="flex: 1; min-width: 300px;">
+                <table id="rateTable" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Dátum</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Árfolyam</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <!-- Diagram -->
+            <div style="flex: 1; min-width: 350px;">
+                <canvas id="rateChart" width="350" height="200"></canvas>
+            </div>
+        </div>
+    </div>
 </body>
+
+
+
 </html>
 
 <?php include 'footer.php' ?>
