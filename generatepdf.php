@@ -1,6 +1,11 @@
 <?php
-include 'header.php';
+include_once 'header.php';
+require_once 'auth.php';
 require_once 'config/database.php';
+if (!isLoggedIn() || (!hasRole('user') && !hasRole('admin'))) {
+    header('Location: login.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

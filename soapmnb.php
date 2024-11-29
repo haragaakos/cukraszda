@@ -1,4 +1,11 @@
-<?php include 'header.php' ?>
+<?php include_once 'header.php';
+require_once 'auth.php';
+if (!isLoggedIn() || (!hasRole('user') && !hasRole('admin'))) {
+    header('Location: login.php');
+    exit;
+}
+
+?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!DOCTYPE html>

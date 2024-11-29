@@ -1,3 +1,48 @@
+.navmenu ul ul {
+  display: none; /* Az almenü alapértelmezés szerint rejtett */
+  flex-direction: column; /* Egymás alá rendezés */
+  position: relative;
+  padding-left: 20px; /* Behúzás az almenükhöz */
+  background: var(--nav-dropdown-background-color); /* Háttérszín az almenüben */
+  box-shadow: none;
+}
+
+.navmenu ul ul a {
+  color: var(--nav-dropdown-color); /* Szöveg színe */
+  font-size: 15px; /* Betűméret */
+  padding: 10px; /* Szélek közti távolság */
+  text-decoration: none; /* Link aláhúzás eltávolítása */
+}
+@media (max-width: 1199px) {
+  .navmenu ul.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background: var(--nav-mobile-background-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+  }
+
+  .navmenu ul ul {
+    display: none;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .navmenu ul li.dropdown-active > ul {
+    display: flex; /* Az almenü lenyitása */
+    flex-direction: column;
+  }
+
+  .mobile-nav-active {
+    overflow: hidden; /* Görgetés letiltása, ha a menü nyitva van */
+  }
+}
+
+
 /**
 * Template Name: Active
 * Template URL: https://bootstrapmade.com/active-bootstrap-website-template/
@@ -290,6 +335,22 @@ h6 {
     cursor: pointer;
     transition: color 0.3s;
   }
+  .navmenu ul ul {
+    display: none; /* Az almenük alapértelmezett rejtése */
+    padding-left: 20px; /* Behúzás */
+    background: var(--nav-dropdown-background-color);
+  }
+
+  .navmenu ul li.dropdown-active > ul {
+    display: block; /* Az aktív almenü megjelenítése */
+  }
+
+  .navmenu ul ul a {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+
 
   .navmenu {
     padding: 0;
@@ -310,7 +371,7 @@ h6 {
     z-index: 9998;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   }
-
+  
   .navmenu a,
   .navmenu a:focus {
     color: var(--nav-color);

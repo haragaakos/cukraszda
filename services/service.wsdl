@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap-env="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost/cukraszda/services/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost/cukraszda/services/">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap-env="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://www.haragaakos.hu/services/" xmlns:xsd="https://www.haragaakos.hu/services/">
   <wsdl:types>
-    <xsd:schema targetNamespace="http://localhost/cukraszda/services/"/>
+    <xsd:schema targetNamespace="https://www.haragaakos.hu/services/"/>
   </wsdl:types>
   <wsdl:message name="getSutiRequest"/>
   <wsdl:message name="getSutiResponse">
@@ -35,7 +35,7 @@
   <wsdl:binding name="SOAPServiceBinding" type="tns:SOAPServicePortType">
     <soap-env:binding xmlns="http://schemas.xmlsoap.org/wsdl/soap/" style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="getSuti">
-      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/cukraszda/services/SOAPService.php?method=getSuti" style="rpc"/>
+      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="https://www.haragaakos.hu/services/SOAPService.php?method=getSuti" style="rpc"/>
       <wsdl:input>
         <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
       </wsdl:input>
@@ -44,7 +44,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getAr">
-      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/cukraszda/services/SOAPService.php?method=getAr" style="rpc"/>
+      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="https://www.haragaakos.hu/services/SOAPService.php?method=getAr" style="rpc"/>
       <wsdl:input>
         <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
       </wsdl:input>
@@ -53,7 +53,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getTartalom">
-      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://localhost/cukraszda/services/SOAPService.php?method=getTartalom" style="rpc"/>
+      <soap-env:operation xmlns="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="https://www.haragaakos.hu/services/SOAPService.php?method=getTartalom" style="rpc"/>
       <wsdl:input>
         <soap-env:body xmlns="http://schemas.xmlsoap.org/wsdl/soap/" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
       </wsdl:input>
@@ -65,7 +65,7 @@
   <wsdl:service name="SOAPService">
     <wsdl:documentation/>
     <wsdl:port name="SOAPServicePort" binding="tns:SOAPServiceBinding">
-      <soap-env:address location="http://localhost/cukraszda/services/SOAPService.php"/>
+      <soap-env:address location="https://www.haragaakos.hu/services/SOAPService.php"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

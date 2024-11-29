@@ -89,7 +89,7 @@ class SOAPService
     }
 }
 $options = array(
-	"uri" => "http://localhost/cukraszda/services/SOAPService.php");
+	"uri" => "http://localhost/cukraszdamasolat/services/SOAPService.php");
 	$server = new SoapServer(null, $options);
 	$server->setClass('SOAPService');
 	$server->handle();

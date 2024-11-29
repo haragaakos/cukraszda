@@ -16,7 +16,4 @@ function requireRole($requiredRole) {
     }
 }
 
-function isVisitor() {
-    return !isLoggedIn();
-}
 ?>

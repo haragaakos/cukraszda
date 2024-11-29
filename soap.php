@@ -1,4 +1,4 @@
-<?php include 'header.php' ?>
+<?php include_once 'header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="hu">
@@ -22,9 +22,20 @@
 
     <?php
     try {
-        $client = new SoapClient("http://localhost/cukraszda/services/service.wsdl");
+        // SOAP kliens inicializálása SSL ellenőrzés kikapcsolásával
+        $options = [
+            'trace' => true,
+            'cache_wsdl' => WSDL_CACHE_NONE,
+            'stream_context' => stream_context_create([
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ]
+            ])
+        ];
+        $client = new SoapClient("https://www.haragaakos.hu/services/service.wsdl", $options);
 
-        //Süti adatok lekérése
+        // Süti adatok lekérése
         $suti = $client->getSuti();
         echo '<div class="table-container">';
         echo '<h2>Süti Adatok</h2>';
@@ -40,7 +51,7 @@
         }
         echo '</tbody></table></div>';
 
-        //Ár adatok lekérése
+        // Ár adatok lekérése
         $ar = $client->getAr();
         echo '<div class="table-container">';
         echo '<h2>Ár Adatok</h2>';
@@ -56,7 +67,7 @@
         }
         echo '</tbody></table></div>';
 
-        //Tartalom adatok lekérése
+        // Tartalom adatok lekérése
         $tartalom = $client->getTartalom();
         echo '<div class="table-container">';
         echo '<h2>Tartalom Adatok</h2>';
@@ -81,5 +92,4 @@
 </body>
 </html>
 
-
-<?php include 'footer.php' ?>
+<?php include 'footer.php'; ?>

@@ -19,5 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$username, $email, $hashedPassword]);
 
     echo "Sikeres regisztráció!";
+    header('Location: ../login.php');
 }
 ?>

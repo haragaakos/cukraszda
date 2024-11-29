@@ -1,11 +1,15 @@
-<?php include 'header.php'?>
-<? include 'auth.php' ?>
+<?php include_once 'header.php'?>
+<?php require_once 'auth.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+ ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Sweet-Cake Cukrászda</title>
   <meta name="description" content="">

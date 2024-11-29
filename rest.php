@@ -1,5 +1,7 @@
 <?php
-include 'header.php'; 
+include_once 'header.php'; 
+require_once 'auth.php';
+requireRole('admin');
 ?>
 
 <!DOCTYPE html>

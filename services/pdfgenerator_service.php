@@ -21,8 +21,7 @@ $stmt = $pdo->prepare("
     INNER JOIN 
         ar ON suti.id = ar.sutiid
     WHERE 
-        suti.tipus = :tipus AND tartalom.mentes = :mentes AND ar.egyseg = :egyseg
-    LIMIT 1
+        suti.tipus = :tipus AND tartalom.mentes = :mentes AND ar.egyseg = :egyseg   
 ");
 $stmt->execute(['tipus' => $tipus, 'mentes' => $mentes, 'egyseg' => $egyseg]);
 
@@ -59,7 +58,11 @@ $html = '
         </tr>
         <tr>
             <th>Ár</th>
-            <td>' . $result['ar_ertek'] . ' ' . $result['ar_egyseg'] . '</td>
+            <td>' . $result['ar_ertek'] .  '</td>
+        </tr>
+        <tr>
+            <th>Egység</th>
+            <td>' . $result['ar_egyseg']  . '</td>
         </tr>
     </table>
 ';

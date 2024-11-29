@@ -1,6 +1,10 @@
 <?php
 header("Content-Type: application/json");
 require_once '../config/database.php';
+require_once '../auth.php';
+requireRole('admin');
+
+
 
 //Az API metódus feldolgozása
 $method = $_SERVER['REQUEST_METHOD'];
